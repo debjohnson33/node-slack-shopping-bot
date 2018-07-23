@@ -20,7 +20,7 @@ async function asyncFetchData() {
     }
 }
 
-asyncFetchData().then(res => console.log(res.products[0].name));
+asyncFetchData().then(res => console.log(JSON.stringify(res)));
 
 module.exports = {asyncFetchData};
  
