@@ -2,9 +2,10 @@ var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
 var fs = require('fs');
 
 var discovery = new DiscoveryV1({
-  version: '2018-03-05',
-  username: process.env.DISCOVERY_USERNAME,
-  password: process.env.DISCOVERY_PASSWORD
+  username: process.env.DISCOVERY_USERNAME, //|| '<discovery_username>'
+  password: process.env.DISCOVERY_PASSWORD,// || '<discovery_password>',
+  version: '2018-05-04',
+  url: process.env.DISCOVERY_URL
 });
 
 // discovery.createCollection(
