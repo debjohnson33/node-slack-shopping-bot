@@ -1,4 +1,6 @@
 var axios = require('axios');
+var fs = require('fs');
+var _ = require('lodash');
 
 async function asyncFetchData() {
     try {
@@ -20,7 +22,14 @@ async function asyncFetchData() {
     }
 }
 
-asyncFetchData().then(res => console.log(JSON.stringify(res)));
+asyncFetchData().then(res => {
+    let products = JSON.stringify(res.products)
+    console.log(products);
+});
+// Iterate through the json data's products array - Maybe with lodash
+// Make each product object in product array into a separate json file with product name 
+// as the file name - using fs function
+
 
 module.exports = {asyncFetchData};
  
