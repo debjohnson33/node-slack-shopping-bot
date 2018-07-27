@@ -9,13 +9,13 @@ var discovery = new DiscoveryV1({
   url: process.env.DISCOVERY_URL
 });
 
-// discovery.createCollection(
-//     { environment_id: 'process.env.DISCOVERY_ENVIRONMENT_ID', collection_name: 'process.env.DISCOVERY_COLLECTION_ID', name: 'watson-online-shopping', description: 'online shopping', configuration_id: 'process.env.DISCOVERY_CONFIGURATION_ID'}), 
-//     function(error, data) {
-//     console.log(JSON.stringify(data, null, 2));
-// };
+// Iterate through the json data's product array - Maybe with lodash
+// Make each product object in product array into a separate json file with product name 
+// as the file name - using fs function
+// Then use for loop? to read each file and add document (code below)
 
 var file = fs.readFileSync('./data.json');
+
 var document_obj = {
   environment_id: process.env.DISCOVERY_ENVIRONMENT_ID, 
   collection_id: process.env.DISCOVERY_COLLECTION_ID, 
