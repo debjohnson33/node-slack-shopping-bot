@@ -3,37 +3,37 @@ var fs = require('fs');
 require('dotenv').config()
 
 var discovery = new DiscoveryV1({
-  username: process.env.DISCOVERY_USERNAME, //|| '<discovery_username>'
-  password: process.env.DISCOVERY_PASSWORD,// || '<discovery_password>',
+  username: process.env.DISCOVERY_USERNAME, 
+  password: process.env.DISCOVERY_PASSWORD,
   version: '2018-05-04',
   url: process.env.DISCOVERY_URL
 });
 
-// Use for loop? to read each file and add document (code below)
+// Use readdir to read the filenames from the directory, 
+// then forEach to read each file and add document (code below)
 
 fs.readdir('./data', (err, files) => {
-  files.forEach(file => {
-    console.log(file);
+  files.forEach(fileName => {
+    console.log(fileName);
+    var fileBuffered = fs.readFileSync('./data/' + fileName);
+    var document_obj = {
+      environment_id: process.env.DISCOVERY_ENVIRONMENT_ID, 
+      collection_id: process.env.DISCOVERY_COLLECTION_ID, 
+      file: {
+        value: Buffer.from(fileBuffered, 'utf8'),
+        options: {
+          filename: fileName
+        }
+      }
+    }
+    discovery.addDocument(document_obj,
+    function(error, data) {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(JSON.stringify(data, null, 2));
+      }  
+    });
   });
 })
-//var file = fs.readFileSync('./data.json');
 
-// var document_obj = {
-//   environment_id: process.env.DISCOVERY_ENVIRONMENT_ID, 
-//   collection_id: process.env.DISCOVERY_COLLECTION_ID, 
-//   file: {
-//     value: Buffer.from(file, 'utf8'),
-//     options: {
-//       filename: 'data.json'
-//     }
-//   }
-// }
-
-// discovery.addDocument(document_obj,
-// function(error, data) {
-//   if (error) {
-//     console.error(error);
-//   } else {
-//     console.log(JSON.stringify(data, null, 2));
-//   }  
-// });
