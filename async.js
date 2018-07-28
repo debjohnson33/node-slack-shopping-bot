@@ -29,7 +29,7 @@ asyncFetchData().then(res => {
     _.forEach(products, function(product, index){ 
         // Make each product object in product array into a separate json file with product name 
         // as the file name - using fs function
-        let fileName = camelCase(JSON.stringify(product.name));
+        let fileName = camelCase(product.name);
         try {
             fs.writeFileSync('data/' + fileName + '.json', JSON.stringify(product));
         } catch (err) {
