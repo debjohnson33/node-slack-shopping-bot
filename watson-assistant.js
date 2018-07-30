@@ -17,11 +17,29 @@ var workspace = {
     dialog_nodes: bot_data.dialog_nodes
 };
 
-assistant.createWorkspace(workspace, function(err, res) {
+// assistant.createWorkspace(workspace, function(err, res) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         workspace_id = res.workspace_id;
+//         console.log("Created workspace: " + workspace_id);
+//     }
+// });
+
+var params = {
+    workspace_id: 'f6f399b9-2298-4895-8a67-5e738722265b',
+    dialog_node: 'shop',
+    conditions:'#Shop',
+    output: {
+      text: 'What do you want to shop for?'
+    },
+    title: 'Shopping'
+};
+  
+assistant.createDialogNode(params, function(err, response) {
     if (err) {
-        console.log(err);
+        console.error(err);
     } else {
-        workspace_id = res.workspace_id;
-        console.log("Created workspace: " + workspace_id);
+        console.log(JSON.stringify(response, null, 2));
     }
 });
