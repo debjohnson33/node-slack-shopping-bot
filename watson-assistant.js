@@ -1,5 +1,6 @@
 var AssistantV1 = require('watson-developer-cloud/assistant/v1');
-var bot_data = require('./workspace.json')
+var bot_data = require('./workspace.json');
+require('dotenv').config()
 
 var assistant = new AssistantV1({
     username: process.env.ASSISTANT_USERNAME,
