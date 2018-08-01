@@ -9,6 +9,9 @@ var discovery = new DiscoveryV1({
   url: process.env.DISCOVERY_URL
 });
 
+var environment_id = process.env.DISCOVERY_ENVIRONMENT_ID;
+var collection_id = process.env.DISCOVERY_COLLECTION_ID;
+
 // Use forEach to read each file and add document
 
 function sendDocsToDiscovery (path, files) {
@@ -16,8 +19,8 @@ function sendDocsToDiscovery (path, files) {
     console.log(fileName);
     var fileBuffered = fs.readFileSync('./data/' + fileName);
     var document_obj = {
-      environment_id: process.env.DISCOVERY_ENVIRONMENT_ID, 
-      collection_id: process.env.DISCOVERY_COLLECTION_ID, 
+      environment_id: environment_id, 
+      collection_id: collection_id, 
       file: {
         value: Buffer.from(fileBuffered, 'utf8'),
         options: {
@@ -36,4 +39,25 @@ function sendDocsToDiscovery (path, files) {
   });
 }
 
-module.exports = sendDocsToDiscovery;
+function sendToDiscovery(query) {
+  return new Promise(function(resolve, reject) {
+    discovery.query({
+      environment_id: environment_id,
+      collection_id: collection_id,
+      query: 'text:' + query // only querying the text field
+    }, function(error, data) {
+        if (error) {
+          reject(error);
+        } else {
+          if (data.results == null) {
+            console.log("Your call to Discovery was complete, but it didn't return a response. Try checking your Discovery data format.");
+            reject(error);
+          } else {
+            resolve([data.results[0].title,data.results[0].text, data.results[0].url]);
+          }
+        }
+    });
+  });
+}
+
+module.exports = {sendDocsToDiscovery, sendToDiscovery};
