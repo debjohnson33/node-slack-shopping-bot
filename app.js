@@ -35,10 +35,9 @@ fs.readdir('./data', function(err, files) {
 					//console.log(JSON.stringify(product.name));
 				});
 			});
-		} else {
-			// add existing files to Discovery
+		} 
+			// Once files exist add existing files to Discovery
 			//sendDocsToDiscovery('./data', files); <-- uncomment to add files to Discovery
-		}
 	}
 })
 
