@@ -9,8 +9,13 @@ var asyncFetchData = require('./async');
 var sendDocsToDiscovery = require('./watson-discovery');
 var sendToAssistant = require('./watson-assistant');
 var workspace_id = process.env.WORKSPACE_ID;
-var input = {'text':'Hello'};
+var input = {'text':'Hello'}; // Change to input from user
 
+var payload = {
+	workspace_id: workspace_id,
+	context: {}, // change to req.body.context || {} to show context from user conversation
+	input: input // change to req.body.input || {} to show input from user
+}
 // Check data folder to see if files are already there
 // If not, run axios call to get/write them
 
@@ -44,7 +49,7 @@ fs.readdir('./data', function(err, files) {
 // Code to retrieve user input goes here... integration with Slack? or Twilio?
 
 // Then start assistant
-sendToAssistant(workspace_id, input);
+sendToAssistant(payload);
 
 // app.get('/', async (req, res) => {
 // 	res.send('Hello World!');
