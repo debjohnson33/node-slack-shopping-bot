@@ -23,7 +23,7 @@ fs.readdir('./data', function(err, files) {
 					// as the file name - using fs function
 					let fileName = camelCase(product.name);
 					try {
-					   // fs.writeFileSync('data/' + fileName + '.json', JSON.stringify(product));
+					   fs.writeFileSync('data/' + fileName + '.json', JSON.stringify(product));
 					   console.log(fileName);
 					} catch (err) {
 						console.log("Cannot write file ", err)

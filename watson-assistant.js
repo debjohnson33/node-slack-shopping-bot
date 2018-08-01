@@ -9,13 +9,14 @@ var assistant = new AssistantV1({
     url: process.env.ASSISTANT_URL
 });
 
-var workspace = {
-    name: 'Online shopping chatbot',
-    description: 'Workspace for online shopping assistant bot.',
-    intents: bot_data.intents,
-    entities: bot_data.entities,
-    dialog_nodes: bot_data.dialog_nodes
-};
+// Code for adding a workspace and below that adding a dialog node
+// var workspace = {
+//     name: 'Online shopping chatbot',
+//     description: 'Workspace for online shopping assistant bot.',
+//     intents: bot_data.intents,
+//     entities: bot_data.entities,
+//     dialog_nodes: bot_data.dialog_nodes
+// };
 
 // assistant.createWorkspace(workspace, function(err, res) {
 //     if (err) {
@@ -26,20 +27,20 @@ var workspace = {
 //     }
 // });
 
-var params = {
-    workspace_id: 'f6f399b9-2298-4895-8a67-5e738722265b',
-    dialog_node: 'shop',
-    conditions:'#Shop',
-    output: {
-      text: 'What do you want to shop for?'
-    },
-    title: 'Shopping'
-};
+// var params = {
+//     workspace_id: 'f6f399b9-2298-4895-8a67-5e738722265b',
+//     dialog_node: 'shop',
+//     conditions:'#Shop',
+//     output: {
+//       text: 'What do you want to shop for?'
+//     },
+//     title: 'Shopping'
+// };
   
-assistant.createDialogNode(params, function(err, response) {
-    if (err) {
-        console.error(err);
-    } else {
-        console.log(JSON.stringify(response, null, 2));
-    }
-});
+// assistant.createDialogNode(params, function(err, response) {
+//     if (err) {
+//         console.error(err);
+//     } else {
+//         console.log(JSON.stringify(response, null, 2));
+//     }
+// });
