@@ -1,7 +1,4 @@
 var axios = require('axios');
-var fs = require('fs');
-var _ = require('lodash');
-const camelCase = require('camelcase');
 
 async function asyncFetchData() {
     try {
@@ -23,25 +20,6 @@ async function asyncFetchData() {
     }
 }
 
-asyncFetchData().then(res => {
-    let products = res.products;
-    // Iterate through the json data's products array
-    _.forEach(products, function(product, index){ 
-        // Make each product object in product array into a separate json file with product name 
-        // as the file name - using fs function
-        let fileName = camelCase(product.name);
-        try {
-            fs.writeFileSync('data/' + fileName + '.json', JSON.stringify(product));
-        } catch (err) {
-            console.log("Cannot write file ", e)
-        }
-        //console.log(JSON.stringify(product.name));
-    });
-});
 
-
-
-
-
-module.exports = {asyncFetchData};
+module.exports = asyncFetchData;
  
