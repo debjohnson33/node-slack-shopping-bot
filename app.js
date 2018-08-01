@@ -1,12 +1,17 @@
 var express = require('express');
 var app = express();
+require('dotenv').config()
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var _ = require('lodash');
 const camelCase = require('camelcase');
 var asyncFetchData = require('./async');
 var sendDocsToDiscovery = require('./watson-discovery');
+var sendToAssistant = require('./watson-assistant');
 
+
+var workspace_id = process.env.WORKSPACE_ID;
+var input = {'text':'Hello'};
 // Check data folder to see if files are already there
 // If not, run axios call to get/write them
 
@@ -33,11 +38,15 @@ fs.readdir('./data', function(err, files) {
 			});
 		} else {
 			// add existing files to Discovery
-			sendDocsToDiscovery('./data', files);
+			//sendDocsToDiscovery('./data', files);
 		}
 	}
 })
 
+// Code to retrieve user input goes here... integration with Slack? or Twilio?
+
+// Then start assistant
+sendToAssistant(workspace_id, input);
 
 app.get('/', async (req, res) => {
 	res.send('Hello World!');

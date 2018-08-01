@@ -9,6 +9,18 @@ var assistant = new AssistantV1({
     url: process.env.ASSISTANT_URL
 });
 
+function sendToAssistant (workspace_id, input) {
+    assistant.message({
+        workspace_id: workspace_id, 
+        input: input}, function(err, res){
+            if (err) {
+                console.log('error: ', err);
+            } else {
+                console.log(JSON.stringify(res, null, 2));
+            }
+    });
+}
+
 // Code for adding a workspace and below that adding a dialog node
 // var workspace = {
 //     name: 'Online shopping chatbot',
@@ -44,3 +56,5 @@ var assistant = new AssistantV1({
 //         console.log(JSON.stringify(response, null, 2));
 //     }
 // });
+
+module.exports = sendToAssistant;
