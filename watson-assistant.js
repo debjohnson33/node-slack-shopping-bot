@@ -9,18 +9,53 @@ var assistant = new AssistantV1({
     url: process.env.ASSISTANT_URL
 });
 
-function sendToAssistant (workspace_id, input) {
-    assistant.message({
-        workspace_id: workspace_id, 
-        input: input}, function(err, res){
-            if (err) {
-                console.log('error: ', err);
-            } else {
-                console.log(JSON.stringify(res, null, 2));
-            }
+function sendToAssistant (payload) {
+    assistant.message(payload, function(err, res){
+        if (err) {
+            console.log('error: ', err);
+        } else {
+            var response = updateMessage(payload, res);
+            response.then(function(response) {
+                console.log(response);
+            })
+            //console.log(JSON.stringify(res, null, 2));
+        }
     });
 }
 
+function updateMessage(input, response) {
+    return new Promise(function(resolve, reject) {
+      var responseText = null;
+      var responseTextEntity = null;
+      var responseTextBoth = null;
+  
+      if (!response.output) {
+        response.output = {};
+      } else if (response.intents[0] === undefined) {
+        resolve(response);
+      } else if (response.intents[0].intent === 'discovery' || response.output.text == '') {
+  
+        responseText = sendToDiscovery(input.input.text);
+        responseTextEntity = sendEntities(response);
+        responseTextBoth = sendBoth(input.input.text, response);
+  
+        // Three responses are given in an array, but sent through as one message
+        responseText.then(function(responseText) {
+          response.output.text[0] = responseText;
+          responseTextEntity.then(function(responseTextEntity) {
+            console.log(responseTextEntity);
+            response.output.text.push(responseTextEntity);
+            responseTextBoth.then(function(responseTextBoth) {
+              response.output.text.push(responseTextBoth);
+              resolve(response);
+            });
+          });
+        });
+      } else {
+        resolve(response);
+      }
+    });
+  }
 // Code for adding a workspace and below that adding a dialog node
 // var workspace = {
 //     name: 'Online shopping chatbot',
