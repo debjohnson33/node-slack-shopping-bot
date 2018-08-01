@@ -9,10 +9,9 @@ var discovery = new DiscoveryV1({
   url: process.env.DISCOVERY_URL
 });
 
-// Use readdir to read the filenames from the directory, 
-// then forEach to read each file and add document (code below)
+// Use forEach to read each file and add document
 
-fs.readdir('./data', (err, files) => {
+function sendDocsToDiscovery (path, files) {
   files.forEach(fileName => {
     console.log(fileName);
     var fileBuffered = fs.readFileSync('./data/' + fileName);
@@ -35,5 +34,6 @@ fs.readdir('./data', (err, files) => {
       }  
     });
   });
-})
+}
 
+module.exports = sendDocsToDiscovery;
