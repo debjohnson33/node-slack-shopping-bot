@@ -9,7 +9,7 @@ var asyncFetchData = require('./async');
 var sendDocsToDiscovery = require('./watson-discovery');
 var sendToAssistant = require('./watson-assistant');
 var workspace_id = process.env.WORKSPACE_ID;
-var input = {'text':'Hello'}; // Change to input from user
+var input = {'text':'Shop'}; // Change to input from user
 
 var payload = {
 	workspace_id: workspace_id,
