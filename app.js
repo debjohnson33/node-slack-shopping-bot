@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 require('dotenv').config();
-var Botkit = require('botkit-middleware-watson');
+var Botkit = require('botkit');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var _ = require('lodash');
