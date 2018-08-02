@@ -18,6 +18,7 @@ function sendToAssistant (payload) {
             var response = updateMessage(payload, res);
             response.then(function(response) {
                 console.log(response);
+                return response;
             })
             //console.log(JSON.stringify(res, null, 2));
         }
