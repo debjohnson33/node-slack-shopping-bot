@@ -66,11 +66,10 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], f
 	if (message.watsonError) {
 	  bot.reply(message, "I'm sorry, but for technical reasons I can't respond to your message");
 	} else {
-
 		var payload = {
 			workspace_id: workspace_id,
 			context: {}, 
-			input: message
+			input: message.text
 		}
 	  sendToAssistant(payload);
 	  bot.reply(message, message.watsonData.output.text.join('\n'));
