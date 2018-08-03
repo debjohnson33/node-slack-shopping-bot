@@ -68,7 +68,7 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], f
 	} else {
 		var payload = {
 			workspace_id: workspace_id,
-			context: {}, 
+			context: message.watsonData.context || {}, 
 			input: message.text
 		}
 	  sendToAssistant(payload);
