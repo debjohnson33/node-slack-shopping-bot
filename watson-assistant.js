@@ -2,6 +2,8 @@ var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 var bot_data = require('./workspace.json');
 require('dotenv').config()
 var {sendToDiscovery} = require('./watson-discovery');
+var sendEntities = require('./sendEntities'); // Discovery function to query on entities
+var sendBoth = require('./sendBoth');
 
 var assistant = new AssistantV1({
     username: process.env.ASSISTANT_USERNAME,
