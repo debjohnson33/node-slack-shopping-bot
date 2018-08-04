@@ -12,17 +12,14 @@ var assistant = new AssistantV1({
     url: process.env.ASSISTANT_URL
 });
 
-function sendToAssistant (payload) {
+async function sendToAssistant (payload) {
+    var response = null;
     assistant.message(payload, function(err, res){
         if (err) {
             console.log('error: ', err);
         } else {
-            var response = updateMessage(payload, res);
-            response.then(function(response) {
-                console.log(response);
-                return response;
-            })
-            //console.log(JSON.stringify(res, null, 2));
+            response = updateMessage(payload, res);
+            return response;
         }
     });
 }
