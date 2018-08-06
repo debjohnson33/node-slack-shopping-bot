@@ -13,13 +13,11 @@ var assistant = new AssistantV1({
 });
 
 async function sendToAssistant (payload) {
-    var response = null;
-    assistant.message(payload, function(err, res){
+    await assistant.message(payload, function(err, res){
         if (err) {
             console.log('error: ', err);
         } else {
-            response = updateMessage(payload, res);
-            return response;
+          return updateMessage(payload, res);
         }
     });
 }
