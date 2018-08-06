@@ -12,14 +12,16 @@ var assistant = new AssistantV1({
     url: process.env.ASSISTANT_URL
 });
 
-async function sendToAssistant (payload) {
-    await assistant.message(payload, function(err, res){
+function sendToAssistant (payload) {
+  return new Promise((resolve, reject) => assistant.message(payload, function(err, res){
         if (err) {
             console.log('error: ', err);
+            reject(err);
         } else {
-          return updateMessage(payload, res);
+          updateMessage(payload, res)
+            .then(resolve(res));
         }
-    });
+    }));
 }
 
 function updateMessage(input, response) {

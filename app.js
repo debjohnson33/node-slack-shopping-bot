@@ -72,8 +72,7 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], f
 			input: {'text': message.text}
 		}
 	  sendToAssistant(payload).then(function(messageReply) {
-		  console.log(messageReply);
-		  bot.reply(message, message.watsonData.output.text.join('\n'));
+		  bot.reply(message, messageReply.output.text.join('\n'));
 	  });
 	}
 });
