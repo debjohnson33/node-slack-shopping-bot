@@ -42,15 +42,17 @@ function updateMessage(input, response) {
   
         // Three responses are given in an array, but sent through as one message
         responseText.then(function(responseText) {
+          
           response.output.text[0] = responseText;
-          responseTextEntity.then(function(responseTextEntity) {
-            //console.log(responseTextEntity);
-            response.output.text.push(responseTextEntity);
-            responseTextBoth.then(function(responseTextBoth) {
-              response.output.text.push(responseTextBoth);
+          // responseTextEntity.then(function(responseTextEntity) {
+          //   //console.log(responseTextEntity);
+          //   response.output.text.push(responseTextEntity);
+          //   responseTextBoth.then(function(responseTextBoth) {
+          //     response.output.text.push(responseTextBoth);
+          console.log(response.output.text);
               resolve(response);
-            });
-          });
+          //  });
+          //});
         });
       } else {
         resolve(response);

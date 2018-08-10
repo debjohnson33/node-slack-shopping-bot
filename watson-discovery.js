@@ -53,7 +53,6 @@ function sendToDiscovery(query) {
             console.log("Your call to Discovery was complete, but it didn't return a response. Try checking your Discovery data format.");
             reject(error);
           } else {
-            console.log(JSON.stringify(data.results[0].product_page, null, 2));
             resolve([data.results[0].title,data.results[0].category, data.results[0].product_page]);
           }
         }
