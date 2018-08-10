@@ -9,8 +9,8 @@ function sendEntities(conversationResponse) {
       version_date: '2017-06-25'
     });
 
-    var environment_id = process.env.ENVIRONMENT_ID;
-    var collection_id = process.env.COLLECTION_ID;
+    var environment_id = process.env.DISCOVERY_ENVIRONMENT_ID;
+    var collection_id = process.env.DISCOVERY_COLLECTION_ID;
 
     entityQuery = generateEntityArray(conversationResponse);
 
