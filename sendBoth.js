@@ -12,19 +12,19 @@ function sendBoth(query, conversationResponse) {
     var environment_id = process.env.DISCOVERY_ENVIRONMENT_ID;
     var collection_id = process.env.DISCOVERY_COLLECTION_ID;
 
-    entityQuery = generateEntityArray(conversationResponse);
+    //entityQuery = generateEntityArray(conversationResponse);
 
-    console.log(entityQuery);
+    //console.log(entityQuery);
 
     discovery.query({
       environment_id: environment_id,
       collection_id: collection_id,
-      query: query + ',' + entityQuery
+      query: query //+ ',' + entityQuery
     }, function(error, data) {
         if (error) {
           reject(error);
         } else {
-          resolve([data.results[0].title,data.results[0].text, data.results[0].url]);
+          resolve([data.results[0].title,data.results[0].category, data.results[0].product_page]);
         }
     });
   });

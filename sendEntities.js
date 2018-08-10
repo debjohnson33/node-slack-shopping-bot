@@ -14,7 +14,7 @@ function sendEntities(conversationResponse) {
 
     entityQuery = generateEntityArray(conversationResponse);
 
-    console.log(entityQuery);
+    //console.log(entityQuery);
 
     discovery.query({
       environment_id: environment_id,
@@ -24,7 +24,7 @@ function sendEntities(conversationResponse) {
         if (error) {
           reject(error);
         } else {
-          resolve([data.results[0].title, data.results[0].text, data.results[0].url]);
+          resolve([data.results[0].title,data.results[0].category, data.results[0].product_page]);
         }
     });
   });

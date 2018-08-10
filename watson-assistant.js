@@ -44,7 +44,7 @@ function updateMessage(input, response) {
         responseText.then(function(responseText) {
           response.output.text[0] = responseText;
           responseTextEntity.then(function(responseTextEntity) {
-            console.log(responseTextEntity);
+            //console.log(responseTextEntity);
             response.output.text.push(responseTextEntity);
             responseTextBoth.then(function(responseTextBoth) {
               response.output.text.push(responseTextBoth);

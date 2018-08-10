@@ -44,7 +44,7 @@ function sendToDiscovery(query) {
     discovery.query({
       environment_id: environment_id,
       collection_id: collection_id,
-      query: 'text:' + query // only querying the text field
+      query: 'category:' + query // only querying the text field
     }, function(error, data) {
         if (error) {
           reject(error);
@@ -53,7 +53,8 @@ function sendToDiscovery(query) {
             console.log("Your call to Discovery was complete, but it didn't return a response. Try checking your Discovery data format.");
             reject(error);
           } else {
-            resolve([data.results[0].title,data.results[0].text, data.results[0].url]);
+            console.log(JSON.stringify(data.results[0].product_page, null, 2));
+            resolve([data.results[0].title,data.results[0].category, data.results[0].product_page]);
           }
         }
     });
