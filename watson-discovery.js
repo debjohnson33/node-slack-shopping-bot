@@ -1,5 +1,6 @@
 var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
 var fs = require('fs');
+var _ = require('lodash');
 require('dotenv').config()
 
 var discovery = new DiscoveryV1({
@@ -53,7 +54,12 @@ function sendToDiscovery(query) {
             console.log("Your call to Discovery was complete, but it didn't return a response. Try checking your Discovery data format.");
             reject(error);
           } else {
-            resolve([data.results[0].title,data.results[0].category, data.results[0].product_page]);
+            let list = [];
+            _.forEach(data.results, function(item, index) {
+               list[index] = {title: item.title, price: item.price, category: item.category};
+            }) 
+            //console.log(list);
+            resolve(list);
           }
         }
     });

@@ -1,6 +1,7 @@
 var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 var bot_data = require('./workspace.json');
 require('dotenv').config()
+var _ = require('lodash');
 var {sendToDiscovery} = require('./watson-discovery');
 var sendEntities = require('./sendEntities'); // Discovery function to query on entities
 var sendBoth = require('./sendBoth');
@@ -42,18 +43,23 @@ function updateMessage(input, response) {
   
         // Three responses are given in an array, but sent through as one message
         responseText.then(function(responseText) {
-          
-          response.output.text[0] = responseText;
+          //console.log(responseText)
+
+          _.forEach(responseText, function(item, index) {
+            response.output.text[index] = item;
+          })
           // responseTextEntity.then(function(responseTextEntity) {
           //   //console.log(responseTextEntity);
           //   response.output.text.push(responseTextEntity);
           //   responseTextBoth.then(function(responseTextBoth) {
           //     response.output.text.push(responseTextBoth);
-          console.log(response.output.text);
+          //console.log(response.output.text[0]);
               resolve(response);
           //  });
           //});
         });
+      // Other else ifs here to list cart, add to cart, delete from cart, and checkout
+      // Another function/module(?) to handle everything for a cart?
       } else {
         resolve(response);
       }
