@@ -52,7 +52,7 @@ function updateMessage(input, response) {
           //   responseTextBoth.then(function(responseTextBoth) {
           //     response.output.text.push(responseTextBoth);
           //console.log(response.output.text[0]);
-              resolve(response);
+              resolve(response.output.text[0]);
           //  });
           //});
         });
