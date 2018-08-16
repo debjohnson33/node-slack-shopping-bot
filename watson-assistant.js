@@ -41,10 +41,17 @@ function sendToAssistant (payload) {
           // Another function/module(?) to handle everything for a cart?
           } else if (res.intents[0].intent === 'listItems') {
             // code to list CART array
+            // if CART array is empty, respond with "Cart is empty"
+            // if CART has items, list them
           } else if (res.intents[0].intent === 'addToCart'){
             // code to add item to CART array
+            // need to get the item from the user input, then
+            // push it onto the CART array
           } else if (res.intents[0].intent === 'RemoveItem') {
             // code to remove item from CART array
+            // search for item in cart
+            // if not found, repond with "That item is not in your cart"
+            // if found, take item out and then list the new cart
           } else {
             resolve(res);
           }
