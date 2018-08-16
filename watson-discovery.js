@@ -58,7 +58,7 @@ function sendToDiscovery(query) {
             _.forEach(data.results, function(item, index) {
                list[index] = index + 1 + ") " + item.title + ": " + item.price;
             })
-            list = list.toString(", "); 
+            list = list.join("\n"); 
             resolve(list);
           }
         }
