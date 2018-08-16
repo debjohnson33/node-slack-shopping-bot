@@ -19,50 +19,69 @@ function sendToAssistant (payload) {
             console.log('error: ', err);
             reject(err);
         } else {
-          updateMessage(payload, res)
-            .then(resolve(res));
+          if (!res.output) {
+            res.output = {};
+          } else if (res.intents[0] === undefined) {
+            resolve(res);
+          } else if (res.intents[0].intent === 'discovery' || res.output.text == '') {
+      
+            responseText = sendToDiscovery(payload.input.text);
+           
+            responseText.then(function(responseText) {
+              res.output.text[1] = responseText;
+              res.context.discovery_result = responseText;
+              console.log(res);
+                  resolve(res);
+              //  });
+              //});
+            });
+          // Other else ifs here to list cart, add to cart, delete from cart, and checkout
+          // Another function/module(?) to handle everything for a cart?
+          } else {
+            resolve(res);
+          }
         }
     }));
 }
 
-function updateMessage(input, response) {
-    return new Promise(function(resolve, reject) {
-      var responseText = null;
-      var responseTextEntity = null;
-      var responseTextBoth = null;
+// function updateMessage(input, response) {
+//     return new Promise(function(resolve, reject) {
+//       var responseText = null;
+//       var responseTextEntity = null;
+//       var responseTextBoth = null;
   
-      if (!response.output) {
-        response.output = {};
-      } else if (response.intents[0] === undefined) {
-        resolve(response);
-      } else if (response.intents[0].intent === 'discovery' || response.output.text == '') {
+//       if (!response.output) {
+//         response.output = {};
+//       } else if (response.intents[0] === undefined) {
+//         resolve(response);
+//       } else if (response.intents[0].intent === 'discovery' || response.output.text == '') {
   
-        responseText = sendToDiscovery(input.input.text);
-        responseTextEntity = sendEntities(response);
-        responseTextBoth = sendBoth(input.input.text, response);
+//         responseText = sendToDiscovery(input.input.text);
+//         responseTextEntity = sendEntities(response);
+//         responseTextBoth = sendBoth(input.input.text, response);
   
-        // Three responses are given in an array, but sent through as one message
-        responseText.then(function(responseText) {
+//         // Three responses are given in an array, but sent through as one message
+//         responseText.then(function(responseText) {
 
-          response.output.text[0] = responseText;
-    
-          // responseTextEntity.then(function(responseTextEntity) {
-          //   //console.log(responseTextEntity);
-          //   response.output.text.push(responseTextEntity);
-          //   responseTextBoth.then(function(responseTextBoth) {
-          //     response.output.text.push(responseTextBoth);
-          //console.log(response.output.text[0]);
-              resolve(response.output.text[0]);
-          //  });
-          //});
-        });
-      // Other else ifs here to list cart, add to cart, delete from cart, and checkout
-      // Another function/module(?) to handle everything for a cart?
-      } else {
-        resolve(response);
-      }
-    });
-  }
+//           response.output.text[0] = responseText;
+//           response.context.discovery_result = responseText;
+//           // responseTextEntity.then(function(responseTextEntity) {
+//           //   //console.log(responseTextEntity);
+//           //   response.output.text.push(responseTextEntity);
+//           //   responseTextBoth.then(function(responseTextBoth) {
+//           //     response.output.text.push(responseTextBoth);
+//           // console.log(response);
+//               resolve(response);
+//           //  });
+//           //});
+//         });
+//       // Other else ifs here to list cart, add to cart, delete from cart, and checkout
+//       // Another function/module(?) to handle everything for a cart?
+//       } else {
+//         resolve(response);
+//       }
+//     });
+//   }
 // Code for adding a workspace and below that adding a dialog node
 // var workspace = {
 //     name: 'Online shopping chatbot',
