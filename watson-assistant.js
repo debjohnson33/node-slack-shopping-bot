@@ -13,6 +13,8 @@ var assistant = new AssistantV1({
     url: process.env.ASSISTANT_URL
 });
 
+const CART = [];
+
 function sendToAssistant (payload) {
   return new Promise((resolve, reject) => assistant.message(payload, function(err, res){
         if (err) {
@@ -37,6 +39,12 @@ function sendToAssistant (payload) {
             });
           // Other else ifs here to list cart, add to cart, delete from cart, and checkout
           // Another function/module(?) to handle everything for a cart?
+          } else if (res.intents[0].intent === 'listItems') {
+            // code to list CART array
+          } else if (res.intents[0].intent === 'addToCart'){
+            // code to add item to CART array
+          } else if (res.intents[0].intent === 'RemoveItem') {
+            // code to remove item from CART array
           } else {
             resolve(res);
           }
