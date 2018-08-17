@@ -14,6 +14,7 @@ var assistant = new AssistantV1({
 });
 
 const CART = [];
+let listArray = [];
 
 function sendToAssistant (payload) {
   return new Promise((resolve, reject) => assistant.message(payload, function(err, res){
@@ -30,8 +31,9 @@ function sendToAssistant (payload) {
             responseText = sendToDiscovery(payload.input.text);
            
             responseText.then(function(responseText) {
-              res.output.text[1] = responseText;
+              res.output.text[1] = responseText.join("\n");
               res.context.discovery_result = responseText;
+              listArray = responseText;
               console.log(res);
                   resolve(res);
               //  });
@@ -43,15 +45,22 @@ function sendToAssistant (payload) {
             // code to list CART array
             // if CART array is empty, respond with "Cart is empty"
             // if CART has items, list them
-          } else if (res.intents[0].intent === 'addToCart'){
+            if (CART.length === "0") {
+              res.output.text[1] = "Your cart is empty"
+            } else {
+              res.output.text[1] = CART.join();
+            }
+          } else if (res.intents[0].intent === 'addToCart' && (res.entities[0].entity === 'sys-number')){
             // code to add item to CART array
             // need to get the item from the user input, then
             // push it onto the CART array
+            console.log(listArray);
           } else if (res.intents[0].intent === 'RemoveItem') {
             // code to remove item from CART array
             // search for item in cart
             // if not found, repond with "That item is not in your cart"
             // if found, take item out and then list the new cart
+            // let item = CART[res.entities.entity - 1];
           } else {
             resolve(res);
           }
