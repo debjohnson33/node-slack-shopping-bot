@@ -56,7 +56,7 @@ function sendToDiscovery(query) {
           } else {
             let list = [];
             _.forEach(data.results, function(item, index) {
-               list[index] = index + 1 + ") " + item.title + ": " + item.price;
+               list[index] = {item: item.title, price: item.price} 
             })
             resolve(list);
           }

@@ -1,7 +1,7 @@
 var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 var bot_data = require('./workspace.json');
 require('dotenv').config()
-//var _ = require('lodash');
+var _ = require('lodash');
 var {sendToDiscovery} = require('./watson-discovery');
 var sendEntities = require('./sendEntities'); // Discovery function to query on entities
 var sendBoth = require('./sendBoth');
@@ -31,9 +31,12 @@ function sendToAssistant (payload) {
             responseText = sendToDiscovery(payload.input.text);
            
             responseText.then(function(responseText) {
-              res.output.text[1] = responseText.join("\n");
+              _.forEach(responseText, function (item, index) {
+                listArray[index] = index + 1 + ") " + item.item + " " + item.price;
+              })
+              res.output.text[1] = listArray.join("\n");
               res.context.discovery_result = responseText;
-              listArray = responseText;
+              
               //console.log(res);
                   resolve(res);
               //  });
