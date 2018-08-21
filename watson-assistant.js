@@ -34,7 +34,7 @@ function sendToAssistant (payload) {
               res.output.text[1] = responseText.join("\n");
               res.context.discovery_result = responseText;
               listArray = responseText;
-              console.log(res);
+              //console.log(res);
                   resolve(res);
               //  });
               //});
@@ -50,11 +50,14 @@ function sendToAssistant (payload) {
             } else {
               res.output.text[1] = CART.join();
             }
-          } else if (res.intents[0].intent === 'addToCart' && (res.entities[0].entity === 'sys-number')){
+          } else if (res.intents[0].intent === 'AddToCart' && (res.entities[0].entity === 'sys-number')){
             // code to add item to CART array
             // need to get the item from the user input, then
             // push it onto the CART array
-            console.log(listArray);
+            let sysNumber = res.entities[0].value;
+            CART.push(listArray[sysNumber - 1]);
+            res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join();
+            console.log(res);
           } else if (res.intents[0].intent === 'RemoveItem') {
             // code to remove item from CART array
             // search for item in cart
