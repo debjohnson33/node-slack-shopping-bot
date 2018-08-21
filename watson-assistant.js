@@ -40,11 +40,7 @@ function sendToAssistant (payload) {
               //});
             });
           // Other else ifs here to list cart, add to cart, delete from cart, and checkout
-          // Another function/module(?) to handle everything for a cart?
           } else if (res.intents[0].intent === 'listItems') {
-            // code to list CART array
-            // if CART array is empty, respond with "Cart is empty"
-            // if CART has items, list them
             if (CART.length === "0") {
               res.output.text[0] = "Your cart is empty"
               resolve(res);
@@ -53,9 +49,6 @@ function sendToAssistant (payload) {
               resolve(res);
             }
           } else if (res.intents[0].intent === 'AddToCart' && (res.entities[0].entity === 'sys-number')){
-            // code to add item to CART array
-            // need to get the item from the user input, then
-            // push it onto the CART array
             let sysNumber = res.entities[0].value;
             CART.push(listArray[sysNumber - 1]);
             res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join();
@@ -69,7 +62,6 @@ function sendToAssistant (payload) {
           } else if (res.intents[0].intent === 'Checkout') {
             res.output.text[0] = "Okay. Your purchase is complete. Here is what you bought: " + CART.join();
             CART.splice(0, CART.length);
-            console.log(CART);
             resolve(res);
           } else {
             resolve(res);
