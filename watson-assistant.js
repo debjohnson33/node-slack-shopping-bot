@@ -46,9 +46,11 @@ function sendToAssistant (payload) {
             // if CART array is empty, respond with "Cart is empty"
             // if CART has items, list them
             if (CART.length === "0") {
-              res.output.text[1] = "Your cart is empty"
+              res.output.text[0] = "Your cart is empty"
+              resolve(res);
             } else {
-              res.output.text[1] = CART.join();
+              res.output.text[0] = CART.join();
+              resolve(res);
             }
           } else if (res.intents[0].intent === 'AddToCart' && (res.entities[0].entity === 'sys-number')){
             // code to add item to CART array
@@ -57,13 +59,18 @@ function sendToAssistant (payload) {
             let sysNumber = res.entities[0].value;
             CART.push(listArray[sysNumber - 1]);
             res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join();
-            console.log(res);
+            resolve(res);
           } else if (res.intents[0].intent === 'RemoveItem') {
             // code to remove item from CART array
             // search for item in cart
             // if not found, repond with "That item is not in your cart"
             // if found, take item out and then list the new cart
             // let item = CART[res.entities.entity - 1];
+          } else if (res.intents[0].intent === 'Checkout') {
+            res.output.text[0] = "Okay. Your purchase is complete. Here is what you bought: " + CART.join();
+            CART.splice(0, CART.length);
+            console.log(CART);
+            resolve(res);
           } else {
             resolve(res);
           }
