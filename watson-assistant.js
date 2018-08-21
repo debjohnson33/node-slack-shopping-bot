@@ -15,6 +15,7 @@ var assistant = new AssistantV1({
 
 const CART = [];
 let listArray = [];
+let listObj = {};
 
 function sendToAssistant (payload) {
   return new Promise((resolve, reject) => assistant.message(payload, function(err, res){
@@ -36,7 +37,7 @@ function sendToAssistant (payload) {
               })
               res.output.text[1] = listArray.join("\n");
               res.context.discovery_result = responseText;
-              
+              listObj = responseText;
               //console.log(res);
                   resolve(res);
               //  });
