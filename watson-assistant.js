@@ -54,8 +54,11 @@ function sendToAssistant (payload) {
             }
           } else if (res.intents[0].intent === 'AddToCart' && (res.entities[0].entity === 'sys-number')){
             let sysNumber = res.entities[0].value;
-            CART.push(listArray[sysNumber - 1]);
-            res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join();
+            let obj = listObj.find(o => o.itemNum === parseInt(sysNumber));
+            let formattedObj = obj.item + ": " + obj.price;
+            CART.push(formattedObj);
+            console.log(formattedObj);
+            res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join("\n");
             resolve(res);
           } else if (res.intents[0].intent === 'RemoveItem') {
             // code to remove item from CART array
