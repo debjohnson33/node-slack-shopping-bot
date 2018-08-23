@@ -13,8 +13,6 @@ var discovery = new DiscoveryV1({
 var environment_id = process.env.DISCOVERY_ENVIRONMENT_ID;
 var collection_id = process.env.DISCOVERY_COLLECTION_ID;
 
-// Use forEach to read each file and add document
-
 function sendDocsToDiscovery (path, files) {
   files.forEach(fileName => {
     console.log(fileName);
@@ -45,7 +43,7 @@ function sendToDiscovery(query) {
     discovery.query({
       environment_id: environment_id,
       collection_id: collection_id,
-      query: 'category:' + query // only querying the text field
+      query: 'category:' + query
     }, function(error, data) {
         if (error) {
           reject(error);

@@ -41,7 +41,7 @@ var workspace_id = process.env.WORKSPACE_ID;
 // 	}
 // })
 
-// Code to retrieve user input goes here... integration with Slack? or Twilio?
+// Code to retrieve user input
 var slackController = Botkit.slackbot();
 var slackBot = slackController.spawn({
 	token: process.env.SLACK_BOT_TOKEN
@@ -77,6 +77,7 @@ slackController.hears(['.*'], ['direct_message', 'direct_mention', 'mention'], f
 	}
 });
 
+// Only need below code if running a web app; not needed for running with Slack connection
 // app.get('/', async (req, res) => {
 // 	res.send('Hello World!');
 // });

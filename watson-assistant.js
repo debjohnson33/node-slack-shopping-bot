@@ -3,7 +3,7 @@ var bot_data = require('./workspace.json');
 require('dotenv').config()
 var _ = require('lodash');
 var {sendToDiscovery} = require('./watson-discovery');
-var sendEntities = require('./sendEntities'); // Discovery function to query on entities
+var sendEntities = require('./sendEntities'); 
 var sendBoth = require('./sendBoth');
 
 var assistant = new AssistantV1({
