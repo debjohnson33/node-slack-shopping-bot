@@ -60,23 +60,20 @@ function sendToAssistant (payload) {
             console.log(formattedObj);
             res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join("\n");
             resolve(res);
-          } else if (res.intents[0].intent === 'RemoveItem') {
+          } else if (res.intents[0].intent === 'RemoveItem' && (res.entities[0].entity === 'sys-number')) {
             // code to remove item from CART array
             // search for item in cart
             // if not found, repond with "That item is not in your cart"
             // if found, take item out and then list the new cart
-            if (res.entities[0].entity === 'sys-number') {
-              let itemNum = res.entities[0].value - 1;
-              console.log(itemNum);
-              if (!itemNum) {
+              let itemNum = parseInt(res.entities[0].value) - 1;
+              if (itemNum < 0 || itemNum > CART.length - 1) {
                 res.output.text[0] = "That item is not in your cart"
                 resolve(res);
               } else {
                 CART.splice(itemNum, 1);
-                res.output.text[0] = "Okay. Item #" + itemNum + " was removed from your cart."
+                res.output.text[0] = "Okay. Item #" + (itemNum + 1) + " was removed from your cart."
                 resolve(res);
               }
-            }
           } else if (res.intents[0].intent === 'Checkout') {
             res.output.text[0] = "Okay. Your purchase is complete. Here is what you bought: " + CART.join();
             CART.splice(0, CART.length);
