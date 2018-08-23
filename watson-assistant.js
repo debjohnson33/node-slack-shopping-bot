@@ -38,12 +38,8 @@ function sendToAssistant (payload) {
               res.output.text[1] = listArray.join("\n");
               res.context.discovery_result = responseText;
               listObj = responseText;
-              //console.log(res);
                   resolve(res);
-              //  });
-              //});
             });
-          // Other else ifs here to list cart, add to cart, delete from cart, and checkout
           } else if (res.intents[0].intent === 'listItems') {
             if (CART.length === "0") {
               res.output.text[0] = "Your cart is empty"
@@ -57,14 +53,9 @@ function sendToAssistant (payload) {
             let obj = listObj.find(o => o.itemNum === parseInt(sysNumber));
             let formattedObj = obj.item + ": " + obj.price;
             CART.push(formattedObj);
-            console.log(formattedObj);
             res.output.text[0] = "Your item is added to your cart. Your cart is: " + CART.join("\n");
             resolve(res);
           } else if (res.intents[0].intent === 'RemoveItem' && (res.entities[0].entity === 'sys-number')) {
-            // code to remove item from CART array
-            // search for item in cart
-            // if not found, repond with "That item is not in your cart"
-            // if found, take item out and then list the new cart
               let itemNum = parseInt(res.entities[0].value) - 1;
               if (itemNum < 0 || itemNum > CART.length - 1) {
                 res.output.text[0] = "That item is not in your cart"
@@ -85,44 +76,7 @@ function sendToAssistant (payload) {
     }));
 }
 
-// function updateMessage(input, response) {
-//     return new Promise(function(resolve, reject) {
-//       var responseText = null;
-//       var responseTextEntity = null;
-//       var responseTextBoth = null;
-  
-//       if (!response.output) {
-//         response.output = {};
-//       } else if (response.intents[0] === undefined) {
-//         resolve(response);
-//       } else if (response.intents[0].intent === 'discovery' || response.output.text == '') {
-  
-//         responseText = sendToDiscovery(input.input.text);
-//         responseTextEntity = sendEntities(response);
-//         responseTextBoth = sendBoth(input.input.text, response);
-  
-//         // Three responses are given in an array, but sent through as one message
-//         responseText.then(function(responseText) {
 
-//           response.output.text[0] = responseText;
-//           response.context.discovery_result = responseText;
-//           // responseTextEntity.then(function(responseTextEntity) {
-//           //   //console.log(responseTextEntity);
-//           //   response.output.text.push(responseTextEntity);
-//           //   responseTextBoth.then(function(responseTextBoth) {
-//           //     response.output.text.push(responseTextBoth);
-//           // console.log(response);
-//               resolve(response);
-//           //  });
-//           //});
-//         });
-//       // Other else ifs here to list cart, add to cart, delete from cart, and checkout
-//       // Another function/module(?) to handle everything for a cart?
-//       } else {
-//         resolve(response);
-//       }
-//     });
-//   }
 // Code for adding a workspace and below that adding a dialog node
 // var workspace = {
 //     name: 'Online shopping chatbot',
