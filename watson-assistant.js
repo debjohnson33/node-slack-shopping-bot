@@ -45,7 +45,7 @@ function sendToAssistant (payload) {
               res.output.text[0] = "Your cart is empty"
               resolve(res);
             } else {
-              res.output.text[0] = CART.join();
+              res.output.text[0] = CART.join("\n");
               resolve(res);
             }
           } else if (res.intents[0].intent === 'AddToCart' && (res.entities[0].entity === 'sys-number')){
@@ -66,7 +66,7 @@ function sendToAssistant (payload) {
                 resolve(res);
               }
           } else if (res.intents[0].intent === 'Checkout') {
-            res.output.text[0] = "Okay. Your purchase is complete. Here is what you bought: " + CART.join();
+            res.output.text[0] = "Okay. Your purchase is complete. Here is what you bought: " + CART.join("\n");
             CART.splice(0, CART.length);
             resolve(res);
           } else {
