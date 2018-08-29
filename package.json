@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha || true",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "node app.js"
   },
@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "botkit": "^0.6.16",
     "botkit-middleware-watson": "^1.8.0",
     "camelcase": "^5.0.0",
     "dotenv": "^6.0.0",
